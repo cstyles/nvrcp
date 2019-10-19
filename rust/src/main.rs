@@ -3,13 +3,13 @@ use std::io::{self, Read};
 use std::env;
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
+    let args: Vec<String> = env::args().skip(1).collect();
     let mut nvim = connect_to_nvim();
 
-    if args.len() < 2 {
+    if args.len() == 0 {
         getreg(&mut nvim);
     } else {
-        match args[1].to_ascii_lowercase().as_str() {
+        match args[0].to_ascii_lowercase().as_str() {
             "s" | "set" | "setreg"     => setreg(&mut nvim),
             "g" | "get" | "getreg" | _ => getreg(&mut nvim),
         }
